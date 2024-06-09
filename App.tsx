@@ -10,18 +10,29 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CurrentWeather from './components/currentWeather';
 import UpcommingWeather from './components/UpcommingWeather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Feather';
 const Tab = createBottomTabNavigator();
 function App(): any {
 
   return (
 
       <NavigationContainer>
-        <Tab.Navigator >
+        <Tab.Navigator screenOptions={{
+          tabBarStyle :{
+            backgroundColor : "black", 
+          },
+        headerStyle :{
+          backgroundColor : "black",
+        },
+        headerTitleStyle :{
+          color : "white",
+        },
+        }} >
         <Tab.Screen name="current weather" component={CurrentWeather} options={{
-        tabBarIcon : ()=><Ionicons name= "cloud"/>,
+        tabBarIcon : ()=><Icon name= "cloud" size={20} color={"white"}/>,
         }}/>
         <Tab.Screen name="UpComing weather" component={UpcommingWeather} options={{
-           tabBarIcon : ()=><Ionicons name= "cloud"/>,
+           tabBarIcon : ()=><Icon name= "clock"size={20} color={'white'}/>,
         }}/>
 
       </Tab.Navigator>
