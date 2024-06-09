@@ -10,7 +10,7 @@ const data = [
 ]
 function UpcommingWeather() {
   return (
-    <View>
+    <View style = {style.bg}>
         <Text style = {style.heading}>UpComing Weather</Text>
         <FlatList data={data} renderItem={({item})=>
         <ListItem min = {item.min} max={item.max} weather= {item.weather}/>
@@ -24,6 +24,10 @@ const style = StyleSheet.create({
         fontSize : 30,
         margin : 20,
         color : 'black',
+    },
+    bg:{
+      backgroundColor : 'orange',
+      flex :1,
     },
 })
 export default UpcommingWeather

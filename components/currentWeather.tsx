@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {View, Text,StyleSheet} from 'react-native';
 const CurrentWeather = ():React.JSX.Element => {
   return (
-    <View>
+    <View style = {styles.bg}>
       <View>
         <Text style={styles.heading}>Weather App</Text>
         <Icon
