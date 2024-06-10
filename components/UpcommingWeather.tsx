@@ -26,7 +26,7 @@ const style = StyleSheet.create({
         color : 'black',
     },
     bg:{
-      backgroundColor : 'orange',
+      backgroundColor : 'lightblue',
       flex :1,
     },
 })

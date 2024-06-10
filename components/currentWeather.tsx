@@ -1,4 +1,10 @@
 /* eslint-disable prettier/prettier */
+
+
+
+
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {View, Text,StyleSheet} from 'react-native';
@@ -6,7 +12,6 @@ const CurrentWeather = ():React.JSX.Element => {
   return (
     <View style = {styles.bg}>
       <View>
-        <Text style={styles.heading}>Weather App</Text>
         <Icon
           color="black"
           name="sun"
@@ -23,7 +28,7 @@ const CurrentWeather = ():React.JSX.Element => {
 };
 const styles = StyleSheet.create({
   bg: {
-    backgroundColor: 'orange',
+    backgroundColor: 'lightblue',
     display: 'flex',
     alignItems: 'center',
     flex: 1,
