@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable dot-notation */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable react/no-unstable-nested-components */
@@ -7,7 +8,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
 import {  PermissionsAndroid, StyleSheet} from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
 import { ActivityIndicator } from 'react-native';
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
@@ -17,9 +17,6 @@ import CurrentWeather from './components/currentWeather';
 import UpcommingWeather from './components/UpcommingWeather';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { api_key} from "@env";
-let logi :number | null = null;
-let lat: number | null = null;
 const Tab = createBottomTabNavigator();
 
 
@@ -53,29 +50,14 @@ const requestCameraPermission = async () => {
 
 function App(): any {
 
-  const getWeaterData = async  ()=>{
-    let res = null; 
-    Geolocation.getCurrentPosition(
-      //"latitude": 37.4220936, "longitude":
-     async (position) => {
-       logi = position['coords']["longitude"];
-        lat = position['coords']["latitude"];
-        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${logi}&appid=${api_key}`;
-        let reponse = await fetch(url);
-       let result = await reponse.json();
-       setweather(result);
   
-      
-      });
-  };
-
   
 
 
 
   useEffect( ()=>{
     requestCameraPermission();
-    getWeaterData();
+    //getWeaterData();
    
   
      
@@ -107,7 +89,7 @@ console.log(weather);
           color : "black",
         },
         }} >
-        <Tab.Screen name="current weather" component={CurrentWeather} initialParams={{weather}} options={{
+        <Tab.Screen name="current weather" component={CurrentWeather}  options={{
         tabBarIcon : ()=><Icon name= "cloud" size={20} color={"black"}/>,
         }}/>
         <Tab.Screen name="UpComing weather" component={UpcommingWeather} options={{
