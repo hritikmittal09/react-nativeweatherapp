@@ -1,3 +1,5 @@
+/* eslint-disable dot-notation */
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
@@ -14,14 +16,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CurrentWeather from './components/currentWeather';
 import UpcommingWeather from './components/UpcommingWeather';
 import Icon from 'react-native-vector-icons/Feather';
+
+import { api_key} from "@env";
+let logi :number | null = null;
+let lat: number | null = null;
 const Tab = createBottomTabNavigator();
 
-const getCurrentLocaton = async()=>{
-  Geolocation.getCurrentPosition(
-    (position) => {
-      console.log(position);
-    });
-};
+
 const requestCameraPermission = async () => {
   try {
     const granted = await PermissionsAndroid.request(
@@ -50,13 +51,39 @@ const requestCameraPermission = async () => {
 
 
 
-
 function App(): any {
-  useEffect(()=>{
+
+  const getWeaterData = async  ()=>{
+    let res = null; 
+    Geolocation.getCurrentPosition(
+      //"latitude": 37.4220936, "longitude":
+     async (position) => {
+       logi = position['coords']["longitude"];
+        lat = position['coords']["latitude"];
+        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${logi}&appid=${api_key}`;
+        let reponse = await fetch(url);
+       let result = await reponse.json();
+       setweather(result);
+  
+      
+      });
+  };
+
+  
+
+
+
+  useEffect( ()=>{
     requestCameraPermission();
-    getCurrentLocaton();
-  });
+    getWeaterData();
+   
+  
+     
+    
+    
+  },[]);
   const [loding,setloading] = useState(false);
+  const [weather,setweather] = useState([]);
   if (loding) {
     return(
       <View style = {{flex : 1, backgroundColor : "lightblue", justifyContent :"center"}}>
@@ -64,6 +91,7 @@ function App(): any {
       </View>
     );
   }
+console.log(weather);
 
   return (
 
@@ -79,7 +107,7 @@ function App(): any {
           color : "black",
         },
         }} >
-        <Tab.Screen name="current weather" component={CurrentWeather} options={{
+        <Tab.Screen name="current weather" component={CurrentWeather} initialParams={{weather}} options={{
         tabBarIcon : ()=><Icon name= "cloud" size={20} color={"black"}/>,
         }}/>
         <Tab.Screen name="UpComing weather" component={UpcommingWeather} options={{
