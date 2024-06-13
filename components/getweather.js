@@ -5,12 +5,13 @@
 /* eslint-disable prettier/prettier */
 import { useState, useEffect } from "react";
 import Geolocation from 'react-native-geolocation-service';
-import { api_key } from "@env"; // Make sure this is correctly imported from your environment variables
+import { api_key , api_key2} from "@env"; // Make sure this is correctly imported from your environment variables
 
 export const useWeatherData = () => {
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
+  //const [weatherForcestlist , setWeatherForcastList ] = useState(null)
 
   useEffect(() => {
     const fetchWeatherData = async (latitude, longitude) => {
@@ -19,7 +20,10 @@ export const useWeatherData = () => {
         const response = await fetch(url);
         const result = await response.json();
         setWeather(result);
+      
+
       } catch (err) {
+       
         setError(err);
       } finally {
         setLoading(false);
@@ -38,7 +42,8 @@ export const useWeatherData = () => {
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { weather, loading, error };
+  return { weather,loading, error };
 };

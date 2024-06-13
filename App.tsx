@@ -7,10 +7,10 @@
 /* eslint-disable quotes */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
-import {  PermissionsAndroid, StyleSheet} from 'react-native';
+import { PermissionsAndroid, StyleSheet, BackHandler, Alert } from 'react-native';
 import { ActivityIndicator } from 'react-native';
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CurrentWeather from './components/currentWeather';
@@ -19,87 +19,92 @@ import Icon from 'react-native-vector-icons/Feather';
 
 const Tab = createBottomTabNavigator();
 
-
-const requestCameraPermission = async () => {
+const requestLocationPermission = async () => {
   try {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       {
-        title: 'Cool Photo App Camera Permission',
-        message:
-          'Cool Photo App needs access to your camera ' +
-          'so you can take awesome pictures.',
+        title: 'Location Permission',
+        message: 'This app needs access to your location to show weather data.',
         buttonNeutral: 'Ask Me Later',
         buttonNegative: 'Cancel',
         buttonPositive: 'OK',
       },
     );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('You can use the location');
-    } else {
-      console.log('location permission denied');
-    }
+    return granted === PermissionsAndroid.RESULTS.GRANTED;
   } catch (err) {
     console.warn(err);
+    return false;
   }
 };
 
-
-
-
-
 function App(): any {
+  const [loading, setLoading] = useState(true);
+  const [permissionGranted, setPermissionGranted] = useState(false);
 
-  
-  
+  useEffect(() => {
+    const requestPermission = async () => {
+      const granted = await requestLocationPermission();
+      setPermissionGranted(granted);
+      setLoading(false);
+      if (!granted) {
+        Alert.alert(
+          'Permission Denied',
+          'Location permission is required to use this app. The app will now close.',
+          [{ text: 'OK', onPress: () => BackHandler.exitApp() }]
+        );
+      }
+    };
 
+    requestPermission();
+  }, []);
 
-
-  useEffect( ()=>{
-    requestCameraPermission();
-    //getWeaterData();
-   
-  
-     
-    
-    
-  },[]);
-  const [loding,setloading] = useState(false);
-  const [weather,setweather] = useState([]);
-  if (loding) {
-    return(
-      <View style = {{flex : 1, backgroundColor : "lightblue", justifyContent :"center"}}>
-        <ActivityIndicator size={"large"} color={"black"}/>
+  if (loading) {
+    return (
+      <View style={{ flex: 1, backgroundColor: 'lightblue', justifyContent: 'center' }}>
+        <ActivityIndicator size="large" color="black" />
       </View>
     );
   }
-console.log(weather);
+
+  if (!permissionGranted) {
+    return null; // Do not render anything if permission is denied
+  }
 
   return (
-
-      <NavigationContainer>
-        <Tab.Navigator screenOptions={{
-          tabBarStyle :{
-            backgroundColor : "white",
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarStyle: {
+            backgroundColor: 'white',
           },
-        headerStyle :{
-          backgroundColor : "white",
-        },
-        headerTitleStyle :{
-          color : "black",
-        },
-        }} >
-        <Tab.Screen name="current weather" component={CurrentWeather}  options={{
-        tabBarIcon : ()=><Icon name= "cloud" size={20} color={"black"}/>,
-        }}/>
-        <Tab.Screen name="UpComing weather" component={UpcommingWeather} options={{
-           tabBarIcon : ()=><Icon name= "clock"size={20} color={'black'}/>,
-        }}/>
-
+          headerStyle: {
+            backgroundColor: 'white',
+          },
+          headerTitleStyle: {
+            color: 'black',
+          },
+        }}
+      >
+        <Tab.Screen
+          name="Current Weather"
+          component={CurrentWeather}
+          options={{
+            tabBarIcon: () => <Icon name="cloud" size={20} color="black" />,
+          }}
+        />
+        <Tab.Screen
+          name="More Info"
+          component={UpcommingWeather}
+          options={{
+            tabBarIcon: () => <Icon name="info" size={20} color="black" />,
+          }}
+        />
       </Tab.Navigator>
-      </NavigationContainer>
+    </NavigationContainer>
   );
 }
+
 const styles = StyleSheet.create({
   bg: {
     backgroundColor: 'black',
@@ -119,4 +124,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
 export default App;

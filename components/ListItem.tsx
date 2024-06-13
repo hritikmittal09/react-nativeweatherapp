@@ -2,27 +2,22 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import Icon from 'react-native-vector-icons/Feather';
+//import Icon from 'react-native-vector-icons/Feather';
 import { View, Text, StyleSheet } from 'react-native';
 
 interface Iprops{
     weather : string,
-    max : Number,
-    min : Number
+    min : any
 }
 
-const ListItem : React.FC<Iprops> = ({min ,max, weather}) => {
+const ListItem : React.FC<Iprops> = ({ min, weather}) => {
   return (
     <View style = {style.item}>
-        <Icon
-          color="black"
-          name="sun"
-          style={{alignSelf: 'center'}}
-          size={40}
-        />
-        <Text style = {{color : 'black'}}> min {String(min)}</Text>
-        <Text style = {{color : 'black'}}>max {String(max)}</Text>
-        <Text style = {{color : 'black'}}>Weather {weather}</Text>
+
+
+<Text style = {{color : 'black', fontSize : 20, alignSelf : "center"} }> {weather} : {min}</Text>
+
+
     </View>
   );
 };
