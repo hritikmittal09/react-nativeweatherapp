@@ -61,8 +61,8 @@ function App(): any {
 
   if (loading) {
     return (
-      <View style={{ flex: 1, backgroundColor: 'lightblue', justifyContent: 'center' }}>
-        <ActivityIndicator size="large" color="black" />
+      <View >
+        <ActivityIndicator  />
       </View>
     );
   }
