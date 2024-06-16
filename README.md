@@ -77,9 +77,13 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-I have just completed my first React Native Android weather app! 🚀
+
+
+# App Description and working
+I have just completed my  React Native Android weather app! 🚀
 This app automatically takes the location of your mobile phone and provides the current weather conditions for that place. 🌤️🌧️❄️
 Here's what I learned and accomplished during this project:
 🔹 React Native Development: Delved deep into React Native to build a seamless and user-friendly interface. 🔹 Geolocation Services: Integrated geolocation services to automatically fetch the user's location. 🔹 API Integration: Used weather APIs to fetch and display real-time weather data. 🔹 UI/UX Design: Focused on creating a clean and intuitive user experience.
 This project has been a fantastic journey, and I'm excited to continue exploring the world of mobile app development. Huge thanks to everyone who has supported me along the way
 ![alt text](<WhatsApp Image 2024-06-13 at 23.00.14_46ad5877.jpg>)
+![alt text](<WhatsApp Image 2024-06-13 at 23.01.18_d12fa7ea.jpg>)
